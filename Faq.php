@@ -3,7 +3,7 @@
 namespace pistej\faq;
 
 /**
- * pistej module definition class
+ * Faq module definition class
  */
 class Faq extends \yii\base\Module
 {
@@ -15,21 +15,22 @@ class Faq extends \yii\base\Module
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
 
         $this->registerTranslations();
     }
 
-    public function registerTranslations()
+
+    public function registerTranslations(): void
     {
         \Yii::$app->i18n->translations['extensions/yii2-faq/*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
             'sourceLanguage' => 'en-US',
             'basePath' => '@vendor/pistej/yii2-faq/messages',
             'fileMap' => [
-                'extensions/yii2-faq/faq' => 'faq.php',
+                'extensions/yii2-faq/app' => 'app.php',
             ],
         ];
     }

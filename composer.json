@@ -10,12 +10,25 @@
             "email": "test@example.com"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-        "yiisoft/yii2": "~2.0.0"
+        "php": ">=7.1",
+        "yiisoft/yii2": "~2.0.14"
     },
     "autoload": {
         "psr-4": {
             "pistej\\faq\\": ""
         }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "config": {
+        "optimize-autoloader": true,
+        "classmap-authoritative": true
     }
 }
