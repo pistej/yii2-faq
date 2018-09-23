@@ -1,0 +1,21 @@
+{
+    "name": "pistej/yii2-faq",
+    "description": "Simple Yii2 FAQ extension",
+    "type": "yii2-extension",
+    "keywords": ["yii2","faq","module","extension"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "pistej",
+            "email": "test@example.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "pistej\\faq\\": ""
+        }
+    }
+}
