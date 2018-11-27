@@ -43,7 +43,7 @@ class Faq extends \yii\base\Module
      *
      * @return string
      */
-    public static function t($category, $message, $params = [], $language = null)
+    public static function t($category, $message, $params = [], $language = null): string
     {
         return \Yii::t('extensions/yii2-faq/' . $category, $message, $params, $language);
     }
