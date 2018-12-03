@@ -7,7 +7,7 @@ use pistej\faq\Faq;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Faq::t('app', 'Faq Qas');
+$this->title = Faq::t('app', 'Faq Question/Answer');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="info-panel">
