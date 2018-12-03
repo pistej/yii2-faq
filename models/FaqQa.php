@@ -103,7 +103,7 @@ class FaqQa extends \yii\db\ActiveRecord
             'id' => Faq::t('app', 'ID'),
             'question' => Faq::t('app', 'Question'),
             'answer' => Faq::t('app', 'Answer'),
-            'group_id' => Faq::t('app', 'Group ID'),
+            'group_id' => Faq::t('app', 'Group'),
             'enabled' => Faq::t('app', 'Enabled'),
             'created_at' => Faq::t('app', 'Created At'),
             'created_by' => Faq::t('app', 'Created By'),
@@ -113,9 +113,9 @@ class FaqQa extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \pistej\faq\models\FaqGroup
+     * @return \yii\db\ActiveQuery
      */
-    public function getGroup(): FaqGroup
+    public function getGroup(): \yii\db\ActiveQuery
     {
         return $this->hasOne(FaqGroup::class, ['id' => 'group_id']);
     }

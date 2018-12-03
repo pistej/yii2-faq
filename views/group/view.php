@@ -1,8 +1,8 @@
 <?php
 
+use pistej\faq\Faq;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use pistej\faq\Faq;
 
 /* @var $this yii\web\View */
 /* @var $model pistej\faq\models\FaqGroup */
@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = [
 ];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="faq-group-view">
+<div class="info-panel">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -33,18 +33,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a(Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-default']) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'name',
             'lang_code',
             'key',
-            'created_at',
-            'created_by',
-            'updated_at',
+            //'created_at',
+            //'created_by',
+            'updated_at:datetime',
             'updated_by',
         ],
     ]) ?>

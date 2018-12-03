@@ -10,9 +10,7 @@ use pistej\faq\Faq;
 $this->title = Faq::t('app', 'Faq Qas');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="faq-qa-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="info-panel">
 
     <p>
         <?= Html::a(Faq::t('app', 'Create Faq Qa'), ['create'], ['class' => 'btn btn-success']) ?>

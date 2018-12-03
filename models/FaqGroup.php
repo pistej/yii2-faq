@@ -105,9 +105,9 @@ class FaqGroup extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \pistej\faq\models\FaqQa
+     * @return \yii\db\ActiveQuery
      */
-    public function getFaqQas(): FaqQa
+    public function getFaqQas(): \yii\db\ActiveQuery
     {
         return $this->hasMany(FaqQa::class, ['group_id' => 'id']);
     }

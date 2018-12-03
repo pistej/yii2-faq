@@ -8,11 +8,6 @@ use yii\base\Widget;
 class FaqWidget extends Widget
 {
     /**
-     * @var bool|int if id defined then this FAQ will be opened
-     */
-    public $id = false;
-
-    /**
      * @inheritdoc
      */
     public function init(): void
@@ -25,10 +20,21 @@ class FaqWidget extends Widget
      */
     public function run(): string
     {
-        $question = FaqQa::find()->where($this->id)->one();
+        $question = FaqQa::find()
+                         ->joinWith('group')
+                         ->where([
+                             '{{%faq_group}}.lang_code' => \Yii::$app->language,
+                             '{{%faq_group}}.key' => \Yii::$app->request->url,
+                             '{{%faq_qa}}.enabled' => 1, //enabled
+                         ])
+                         ->one();
 
-        return $this->render('faqDetail', [
-            'question' => $question,
-        ]);
+        if ($question !== null) {
+            return $this->render('faqDetail', [
+                'question' => $question,
+            ]);
+        }
+
+        return '';
     }
 }

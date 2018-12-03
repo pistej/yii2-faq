@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use pistej\faq\Faq;
 
 /* @var $this yii\web\View */
@@ -23,8 +22,6 @@ $this->params['breadcrumbs'][] = [
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="faq-qa-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
