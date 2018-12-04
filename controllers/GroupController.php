@@ -2,12 +2,12 @@
 
 namespace pistej\faq\controllers;
 
-use Yii;
 use pistej\faq\models\FaqGroup;
+use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * GroupController implements the CRUD actions for FaqGroup model.
@@ -31,9 +31,9 @@ class GroupController extends Controller
 
     /**
      * Lists all FaqGroup models.
-     * @return mixed
+     * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $dataProvider = new ActiveDataProvider([
             'query' => FaqGroup::find(),
@@ -49,10 +49,10 @@ class GroupController extends Controller
      *
      * @param integer $id
      *
-     * @return mixed
+     * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id): string
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -111,12 +111,12 @@ class GroupController extends Controller
      *
      * @param integer $id
      *
-     * @return mixed
+     * @return \yii\web\Response
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      * @throws \yii\web\NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id): \yii\web\Response
     {
         $this->findModel($id)
              ->delete();

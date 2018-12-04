@@ -14,8 +14,8 @@ return [
     'translator' => 'Faq::t',
     'sort' => true,
     'overwrite' => true,
-    'removeUnused' => false,
-    'markUnused' => true,
+    'removeUnused' => true,
+    'markUnused' => false,
     'except' => [
         '.svn',
         '.git',
@@ -24,6 +24,7 @@ return [
         '.hgignore',
         '.hgkeep',
         '/messages',
+        '/vendor',
         '/BaseYii.php',
     ],
     'only' => [
@@ -36,12 +37,4 @@ return [
         'yii',
     ],
      */
-
-    //'db' => 'db',
-    //'sourceMessageTable' => '{{%source_message}}',
-    //'messageTable' => '{{%message}}',
-    //'catalog' => 'messages',
-    //'ignoreCategories' => [],
-    //'phpFileHeader' => '',
-    //'phpDocBlock' => null,
 ];

@@ -1,8 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
 use pistej\faq\Faq;
+use pistej\faq\models\FaqGroup;
+use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -24,8 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'question:ntext',
             'answer:ntext',
-            'group_id',
-            'enabled',
+            [
+                'attribute' => 'group_id',
+                'value' => function($model) {
+                    return FaqGroup::findOne($model->group_id)->key;
+                },
+            ],
+            'enabled:boolean',
             //'created_at',
             //'created_by',
             //'updated_at',
