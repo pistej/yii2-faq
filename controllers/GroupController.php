@@ -2,9 +2,11 @@
 
 namespace pistej\faq\controllers;
 
+use pistej\faq\Faq;
 use pistej\faq\models\FaqGroup;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -20,8 +22,18 @@ class GroupController extends Controller
     public function behaviors(): array
     {
         return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    // allow authenticated users
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ]
+                ]
+            ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -69,6 +81,8 @@ class GroupController extends Controller
         $model = new FaqGroup();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->cache->delete($model->lang_code . '/' . $model->key);
+
             return $this->redirect([
                 'view',
                 'id' => $model->id,
@@ -92,8 +106,13 @@ class GroupController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        //create old cache key before update
+        $oldCacheKey = $model->lang_code . '/' . $model->key;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->cache->delete($oldCacheKey);
+            Yii::$app->cache->delete($model->lang_code . '/' . $model->key);
+
             return $this->redirect([
                 'view',
                 'id' => $model->id,
@@ -118,8 +137,19 @@ class GroupController extends Controller
      */
     public function actionDelete($id): \yii\web\Response
     {
-        $this->findModel($id)
-             ->delete();
+        $model = $this->findModel($id);
+
+        if ($model->faqQas === []) {
+            //can be deleted - no related answers found
+            Yii::$app->cache->delete($model->lang_code . '/' . $model->key);
+            $model->delete();
+            Yii::$app->session->addFlash('success', Faq::t('app', 'Item deletion successful.'));
+        } else {
+            Yii::$app->session->addFlash(
+                'warning',
+                Faq::t('app', 'The requested group can not be deleted. Delete related answers first.')
+            );
+        }
 
         return $this->redirect(['index']);
     }

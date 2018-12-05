@@ -21,6 +21,10 @@ or add
 
 to the require section of your `composer.json` file.
 
+To run database migrations, simply call:
+```bash
+php yii migrate/up --migrationPath=vendor/pistej/yii2-faq/migrations/
+```
 
 Usage
 -----
@@ -35,14 +39,15 @@ You should add module to your config:
 ],
 ```
 
-To display FAQ CRUD just go to URL:  
+To display FAQ CRUD (administration pages) just go to URL:  
 example.com/faq/qa/index  
 example.com/faq/group/index
+Actions are allowed for authenticated users only.
 
-Once the extension is installed, simply use it in your code or layout by  :
+Once the extension is installed, simply use it in your code or layout by:
 
 ```php
-<?= \pistej\faq\widgets\FaqWidget\FaqWidget::widget([]); ?>
+<?= \pistej\faq\widgets\FaqWidget\FaqWidget::widget(); ?>
 ```
 
 
@@ -54,7 +59,7 @@ To add new language, (clone repository, install composer) add new language code 
 'languages' => ['sk', 'pl'],
 ```
 
-and run command to extract messages
+and run yii command to extract messages from root folder
 
 ```bash
 php vendor/bin/yii message messages/config.php 

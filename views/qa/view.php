@@ -15,7 +15,7 @@ if ($model->question !== '') {
     $this->title = $model->id;
 }
 $this->params['breadcrumbs'][] = [
-    'label' => Faq::t('app', 'Faq Qas'),
+    'label' => Faq::t('app', 'Faq Q&A'),
     'url' => ['index'],
 ];
 $this->params['breadcrumbs'][] = $this->title;

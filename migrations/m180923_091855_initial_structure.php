@@ -17,7 +17,7 @@ class m180923_091855_initial_structure extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%faq_group}}',[
+        $this->createTable('{{%faq_group}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(255),
             'lang_code' => $this->string(6),
@@ -28,7 +28,7 @@ class m180923_091855_initial_structure extends Migration
             'updated_by' => $this->integer()->null(),
         ], $tableOptions);
 
-        $this->createIndex('index_faq_group_1', '{{%faq_group}}', ['lang_code', 'key']);
+        $this->createIndex('index_faq_group_1', '{{%faq_group}}', ['lang_code', 'key'], true);
 
         $this->createTable('{{%faq_qa}}', [
             'id' => $this->primaryKey(),

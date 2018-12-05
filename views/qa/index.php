@@ -8,13 +8,13 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Faq::t('app', 'Faq Question/Answer');
+$this->title = Faq::t('app', 'Faq Q&A');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="info-panel">
 
     <p>
-        <?= Html::a(Faq::t('app', 'Create Faq Qa'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Faq::t('app', 'Create Faq Q&A'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

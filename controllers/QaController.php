@@ -2,9 +2,11 @@
 
 namespace pistej\faq\controllers;
 
+use pistej\faq\Faq;
 use pistej\faq\models\FaqQa;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -20,6 +22,16 @@ class QaController extends Controller
     public function behaviors(): array
     {
         return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    // allow authenticated users
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ]
+                ]
+            ],
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
@@ -69,6 +81,8 @@ class QaController extends Controller
         $model = new FaqQa();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->cache->delete($model->group->lang_code . '/' . $model->group->key);
+
             return $this->redirect([
                 'view',
                 'id' => $model->id,
@@ -92,8 +106,13 @@ class QaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        //create old cache key before update
+        $oldCacheKey = $model->group->lang_code . '/' . $model->group->key;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->cache->delete($oldCacheKey);
+            Yii::$app->cache->delete($model->group->lang_code . '/' . $model->group->key);
+
             return $this->redirect([
                 'view',
                 'id' => $model->id,
@@ -118,8 +137,10 @@ class QaController extends Controller
      */
     public function actionDelete($id): \yii\web\Response
     {
-        $this->findModel($id)
-             ->delete();
+        $model = $this->findModel($id);
+        Yii::$app->cache->delete($model->group->lang_code . '/' . $model->group->key);
+        $model->delete();
+        Yii::$app->session->addFlash('success', Faq::t('app', 'Item deletion successful.'));
 
         return $this->redirect(['index']);
     }

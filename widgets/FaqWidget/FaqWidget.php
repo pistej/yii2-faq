@@ -20,18 +20,24 @@ class FaqWidget extends Widget
      */
     public function run(): string
     {
-        $question = FaqQa::find()
-                         ->joinWith('group')
-                         ->where([
-                             '{{%faq_group}}.lang_code' => \Yii::$app->language,
-                             '{{%faq_group}}.key' => \Yii::$app->request->url,
-                             '{{%faq_qa}}.enabled' => 1, //enabled
-                         ])
-                         ->one();
+        $route = \Yii::$app->requestedAction ? \Yii::$app->requestedAction->getUniqueId() : \Yii::$app->requestedRoute;
+        $cacheKey = \Yii::$app->language . '/' . $route;
 
-        if ($question !== null) {
+        //empty result is cached (removed from cache) too
+        $questions = \Yii::$app->cache->getOrSet($cacheKey, function () use ($route) {
+            return FaqQa::find()
+                        ->joinWith('group')
+                        ->where([
+                            '{{%faq_group}}.lang_code' => \Yii::$app->language,
+                            '{{%faq_group}}.key' => $route,
+                            '{{%faq_qa}}.enabled' => 1, //enabled
+                        ])
+                        ->all();
+        }, 0);
+
+        if ($questions !== []) {
             return $this->render('faqDetail', [
-                'question' => $question,
+                'questions' => $questions,
             ]);
         }
 
