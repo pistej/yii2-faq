@@ -5,6 +5,7 @@ namespace pistej\faq\controllers;
 use pistej\faq\Faq;
 use pistej\faq\models\FaqGroup;
 use Yii;
+use yii\caching\TagDependency;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -81,7 +82,8 @@ class GroupController extends Controller
         $model = new FaqGroup();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->cache->delete($model->lang_code . '/' . $model->key);
+            //invalidate whole group - answers with all languages
+            TagDependency::invalidate(Yii::$app->cache, $model->key);
 
             return $this->redirect([
                 'view',
@@ -107,11 +109,12 @@ class GroupController extends Controller
     {
         $model = $this->findModel($id);
         //create old cache key before update
-        $oldCacheKey = $model->lang_code . '/' . $model->key;
+        $oldCacheTag = $model->key;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->cache->delete($oldCacheKey);
-            Yii::$app->cache->delete($model->lang_code . '/' . $model->key);
+            //invalidate whole group - answers with all languages
+            TagDependency::invalidate(Yii::$app->cache, $oldCacheTag);
+            TagDependency::invalidate(Yii::$app->cache, $model->key);
 
             return $this->redirect([
                 'view',
@@ -141,7 +144,7 @@ class GroupController extends Controller
 
         if ($model->faqQas === []) {
             //can be deleted - no related answers found
-            Yii::$app->cache->delete($model->lang_code . '/' . $model->key);
+            TagDependency::invalidate(Yii::$app->cache, $model->key);
             $model->delete();
             Yii::$app->session->addFlash('success', Faq::t('app', 'Item deletion successful.'));
         } else {

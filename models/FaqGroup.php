@@ -56,7 +56,7 @@ class FaqGroup extends \yii\db\ActiveRecord
             [
                 [
                     'key',
-                    'lang_code'
+//                    'lang_code'
                 ],
                 'required',
             ],
@@ -82,23 +82,23 @@ class FaqGroup extends \yii\db\ActiveRecord
                 'string',
                 'max' => 255,
             ],
-            [
+            /*[
                 ['lang_code'],
                 'string',
                 'max' => 6,
-            ],
-            [
+            ],*/
+            /*[
                 ['lang_code'],
                 'filter',
                 'filter' => 'strtolower',
-            ],
+            ],*/
             [
-                ['key'],
+                'key',
                 'unique',
-                'targetAttribute' => [
+                /*'targetAttribute' => [
                     'lang_code',
                     'key',
-                ],
+                ],*/
             ],
         ];
     }
@@ -111,7 +111,7 @@ class FaqGroup extends \yii\db\ActiveRecord
         return [
             'id' => Faq::t('app', 'ID'),
             'name' => Faq::t('app', 'Name'),
-            'lang_code' => Faq::t('app', 'Language Code (eg. en, sk)'),
+//            'lang_code' => Faq::t('app', 'Language Code (eg. en, sk)'),
             'key' => Faq::t('app', 'Url (ommit statring /)'),
             'created_at' => Faq::t('app', 'Created At'),
             'created_by' => Faq::t('app', 'Created By'),

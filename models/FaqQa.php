@@ -13,6 +13,7 @@ use yii\db\Expression;
  * @property int $id
  * @property string $question
  * @property string $answer
+ * @property string $lang_code
  * @property int $group_id
  * @property int $enabled
  * @property string $created_at
@@ -64,6 +65,7 @@ class FaqQa extends \yii\db\ActiveRecord
             [
                 [
                     'answer',
+                    'lang_code',
                     'group_id',
                 ],
                 'required',
@@ -85,6 +87,24 @@ class FaqQa extends \yii\db\ActiveRecord
                 'safe',
             ],
             [
+                ['lang_code'],
+                'string',
+                'max' => 6,
+            ],
+            [
+                ['lang_code'],
+                'filter',
+                'filter' => 'strtolower',
+            ],
+            [
+                'group_id',
+                'unique',
+                'targetAttribute' => [
+                    'lang_code',
+                    'group_id',
+                ],
+            ],
+            [
                 ['group_id'],
                 'exist',
                 'skipOnError' => true,
@@ -103,6 +123,7 @@ class FaqQa extends \yii\db\ActiveRecord
             'id' => Faq::t('app', 'ID'),
             'question' => Faq::t('app', 'Question'),
             'answer' => Faq::t('app', 'Answer'),
+            'lang_code' => Faq::t('app', 'Language Code (eg. en, sk)'),
             'group_id' => Faq::t('app', 'Group'),
             'enabled' => Faq::t('app', 'Enabled'),
             'created_at' => Faq::t('app', 'Created At'),

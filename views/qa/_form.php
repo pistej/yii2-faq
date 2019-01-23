@@ -22,6 +22,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'answer')
              ->textarea(['rows' => 6]) ?>
 
+    <?= $form->field($model, 'lang_code')
+        ->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'group_id')
              ->dropDownList(ArrayHelper::map(FaqGroup::find()->all(), 'id', 'key')) ?>
 

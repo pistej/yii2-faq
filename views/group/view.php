@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model pistej\faq\models\FaqGroup */
 
-$this->title = $model->name;
+$this->title = empty($model->name) ? $model->key : $model->name;
 $this->params['breadcrumbs'][] = [
     'label' => Faq::t('app', 'Faq Groups'),
     'url' => ['index'],
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             //'id',
             'name',
-            'lang_code',
+//            'lang_code',
             'key',
             //'created_at',
             //'created_by',

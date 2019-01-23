@@ -8,6 +8,7 @@ use yii\helpers\Html;
 <div class="info-panel">
     <?php
     $count = 0;
+    //fixme only one Q/Answer should be (remove)
     foreach ($questions as $question) {
         if ($count++ > 0) {
             //space between QA

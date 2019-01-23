@@ -81,7 +81,7 @@ class QaController extends Controller
         $model = new FaqQa();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->cache->delete($model->group->lang_code . '/' . $model->group->key);
+            Yii::$app->cache->delete($model->lang_code . '/' . $model->group->key);
 
             return $this->redirect([
                 'view',
@@ -107,11 +107,11 @@ class QaController extends Controller
     {
         $model = $this->findModel($id);
         //create old cache key before update
-        $oldCacheKey = $model->group->lang_code . '/' . $model->group->key;
+        $oldCacheKey = $model->lang_code . '/' . $model->group->key;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->cache->delete($oldCacheKey);
-            Yii::$app->cache->delete($model->group->lang_code . '/' . $model->group->key);
+            Yii::$app->cache->delete($model->lang_code . '/' . $model->group->key);
 
             return $this->redirect([
                 'view',
@@ -138,7 +138,7 @@ class QaController extends Controller
     public function actionDelete($id): \yii\web\Response
     {
         $model = $this->findModel($id);
-        Yii::$app->cache->delete($model->group->lang_code . '/' . $model->group->key);
+        Yii::$app->cache->delete($model->lang_code . '/' . $model->group->key);
         $model->delete();
         Yii::$app->session->addFlash('success', Faq::t('app', 'Item deletion successful.'));
 

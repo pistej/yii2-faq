@@ -15,9 +15,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name')
              ->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'lang_code')
-             ->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'key')
              ->textInput(['maxlength' => true]) ?>
 

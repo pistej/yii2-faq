@@ -1,8 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
 use pistej\faq\Faq;
+use yii\grid\ActionColumn;
+use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -23,14 +24,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'lang_code',
+//            'lang_code',
             'key',
             //'created_at',
             //'created_by',
             //'updated_at',
             //'updated_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => ActionColumn::class,
+                'visibleButtons' => [
+                    'delete' => function ($model, $key, $index) {
+                        return $model->faqQas === [];
+                    },
+                ],
+            ],
         ],
     ]); ?>
 </div>
