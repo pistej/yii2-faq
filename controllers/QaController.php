@@ -74,9 +74,12 @@ class QaController extends Controller
     /**
      * Creates a new FaqQa model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     *
+     * @param int|null $group_id
+     *
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate(int $group_id = null)
     {
         $model = new FaqQa();
 
@@ -87,6 +90,9 @@ class QaController extends Controller
                 'view',
                 'id' => $model->id,
             ]);
+        }
+        if ($group_id !== null) {
+            $model->group_id = $group_id;
         }
 
         return $this->render('create', [

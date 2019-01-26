@@ -34,6 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
         <?= Html::a(Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-default']) ?>
+        <?= Html::a(Faq::t('app', 'Create Faq Q&A'), [
+            'create',
+            'group_id' => $model->id,
+        ], [
+            'class' => 'btn btn-success',
+        ]) ?>
     </p>
 
     <?= DetailView::widget([
@@ -41,7 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             //'id',
             'name',
-//            'lang_code',
             'key',
             //'created_at',
             //'created_by',

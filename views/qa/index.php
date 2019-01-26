@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return FaqGroup::findOne($model->group_id)->key;
                 },
             ],
+            'lang_code',
             'enabled:boolean',
             //'created_at',
             //'created_by',

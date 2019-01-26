@@ -20,7 +20,6 @@ class m180923_091855_initial_structure extends Migration
         $this->createTable('{{%faq_group}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(255),
-//            'lang_code' => $this->string(6),
             'key' => $this->string(255)->notNull()->unique(),
             'created_at' => $this->timestamp()->null(),
             'created_by' => $this->integer()->null(),
